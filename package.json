@@ -16,6 +16,10 @@
     "url": "https://github.com/europeana/contentful-cache/issues"
   },
   "homepage": "https://github.com/europeana/contentful-cache#readme",
+  "engines": {
+    "node": "^12",
+    "npm": "^6"
+  },
   "dependencies": {
     "apicache": "^1.5.2",
     "cors": "^2.8.5",
