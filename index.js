@@ -25,7 +25,7 @@ const cache = apicache.options({
 
 app.use(
   `/spaces/${process.env.CTF_SPACE_ID}/environments/${process.env.CTF_ENVIRONMENT_ID}/`,
-  cache('5 minutes'),
+  cache(process.env.CACHE_DURATION || '5 minutes'),
   proxy({
     target: 'https://cdn.contentful.com/',
     changeOrigin: true,
