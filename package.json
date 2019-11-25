@@ -1,0 +1,27 @@
+{
+  "name": "@europeana/contentful-cache",
+  "version": "0.0.1",
+  "description": "Europeana Contentful cache",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rwd/contentful-cache.git"
+  },
+  "author": "Richard Doe <richard.doe@europeana.eu>",
+  "license": "EUPL-1.2",
+  "bugs": {
+    "url": "https://github.com/rwd/contentful-cache/issues"
+  },
+  "homepage": "https://github.com/rwd/contentful-cache#readme",
+  "dependencies": {
+    "apicache": "^1.5.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^0.20.0",
+    "redis": "^2.8.0"
+  }
+}
