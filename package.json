@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rwd/contentful-cache.git"
+    "url": "git+https://github.com/europeana/contentful-cache.git"
   },
   "author": "Richard Doe <richard.doe@europeana.eu>",
   "license": "EUPL-1.2",
   "bugs": {
-    "url": "https://github.com/rwd/contentful-cache/issues"
+    "url": "https://github.com/europeana/contentful-cache/issues"
   },
-  "homepage": "https://github.com/rwd/contentful-cache#readme",
+  "homepage": "https://github.com/europeana/contentful-cache#readme",
   "dependencies": {
     "apicache": "^1.5.2",
     "cors": "^2.8.5",
