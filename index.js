@@ -23,6 +23,11 @@ const cache = apicache.options({
   redisClient: redis.createClient(redisOptions)
 }).middleware;
 
+app.get('/', (req, res) => {
+  res.type('text/plain');
+  res.send('OK');
+});
+
 app.use(
   `/spaces/${process.env.CTF_SPACE_ID}/environments/${process.env.CTF_ENVIRONMENT_ID}/`,
   cache(process.env.CACHE_DURATION || '5 minutes'),
