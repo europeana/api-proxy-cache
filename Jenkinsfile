@@ -12,7 +12,7 @@ pipeline {
     CF_API="${env.CF_API}"
     CF_LOGIN=credentials('portaljs-contentful-cache.cloudfoundry.login')
     CF_ORG="${env.CF_ORG}"
-    CF_SPACE="${env.BRANCH_NAME == 'feat/jenkinsfile-for-cloud-foundry' ? 'test' : 'production'}"
+    CF_SPACE="${env.BRANCH_NAME == 'master' ? 'test' : 'production'}"
   }
   stages {
     stage('Login to CF') {
