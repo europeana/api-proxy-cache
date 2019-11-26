@@ -4,6 +4,7 @@
   "description": "Europeana Contentful cache",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint *.js",
     "start": "node index.js"
   },
   "repository": {
@@ -27,5 +28,8 @@
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.20.0",
     "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.1"
   }
 }
