@@ -1,0 +1,6 @@
+# Cloud Foundry manifest
+---
+buildpack: sdk-for-nodejs
+memory: 128M
+health-check-type: port
+stack: cflinuxfs3
