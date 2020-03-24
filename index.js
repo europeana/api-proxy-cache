@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-// TODO: use cluster-service?
-
 const express = require('express');
 const apicache = require('apicache');
 const cors = require('cors');

@@ -1,7 +1,7 @@
 # Cloud Foundry manifest
 ---
 buildpack: nodejs_buildpack
-command: npm start
+command: npm run cluster
 memory: 128M
 health-check-type: port
 stack: cflinuxfs3
