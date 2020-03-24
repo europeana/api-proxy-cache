@@ -33,9 +33,12 @@ app.get('/', (req, res) => {
   res.send('OK');
 });
 
+const onlyStatus200 = (req, res) => res.statusCode === 200;
+const cacheSuccesses = cache(process.env.CACHE_DURATION || '5 minutes', onlyStatus200);
+
 app.use(
   `/spaces/${process.env.CTF_SPACE_ID}/environments/${process.env.CTF_ENVIRONMENT_ID}/`,
-  cache(process.env.CACHE_DURATION || '5 minutes'),
+  cacheSuccesses,
   createProxyMiddleware({
     target: 'https://cdn.contentful.com/',
     changeOrigin: true
