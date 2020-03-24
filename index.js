@@ -1,9 +1,11 @@
 require('dotenv').config();
 
+// TODO: use cluster-service?
+
 const express = require('express');
 const apicache = require('apicache');
 const cors = require('cors');
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const redis = require('redis');
 
 const redisOptions = {
@@ -20,7 +22,8 @@ const app = express();
 app.use(cors());
 
 const cache = apicache.options({
-  redisClient: redis.createClient(redisOptions)
+  redisClient: redis.createClient(redisOptions),
+  debug: Number(process.env.ENABLE_APICACHE_DEBUG)
 }).middleware;
 
 app.get('/', (req, res) => {
@@ -31,10 +34,9 @@ app.get('/', (req, res) => {
 app.use(
   `/spaces/${process.env.CTF_SPACE_ID}/environments/${process.env.CTF_ENVIRONMENT_ID}/`,
   cache(process.env.CACHE_DURATION || '5 minutes'),
-  proxy({
+  createProxyMiddleware({
     target: 'https://cdn.contentful.com/',
-    changeOrigin: true,
-    headers: { authorization: `Bearer ${process.env.CTF_CDA_ACCESS_TOKEN}` }
+    changeOrigin: true
   })
 );
 
