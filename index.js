@@ -8,23 +8,27 @@ const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const redis = require('redis');
 
-const redisOptions = {
-  url: process.env.REDIS_URL
+const apicacheOptions = {
+  debug: Number(process.env.ENABLE_APICACHE_DEBUG)
 };
-if (process.env.REDIS_TLS_CA) {
-  redisOptions.tls = {
-    ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')]
+
+if (process.env.REDIS_URL) {
+  const redisOptions = {
+    url: process.env.REDIS_URL
   };
+  if (process.env.REDIS_TLS_CA) {
+    redisOptions.tls = {
+      ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')]
+    };
+  }
+  apicacheOptions.redisClient = redis.createClient(redisOptions);
 }
 
 const app = express();
 
 app.use(cors());
 
-const cache = apicache.options({
-  redisClient: redis.createClient(redisOptions),
-  debug: Number(process.env.ENABLE_APICACHE_DEBUG)
-}).middleware;
+const cache = apicache.options(apicacheOptions).middleware;
 
 app.get('/', (req, res) => {
   res.type('text/plain');
