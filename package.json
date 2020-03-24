@@ -1,6 +1,6 @@
 {
   "name": "@europeana/contentful-cache",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Europeana Contentful cache",
   "main": "index.js",
   "scripts": {
