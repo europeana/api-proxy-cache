@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const apicache = require('apicache');
+const morgan = require('morgan');
 const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const redis = require('redis');
@@ -25,6 +26,7 @@ if (process.env.REDIS_URL) {
 const app = express();
 
 app.use(cors());
+app.use(morgan('combined'));
 
 const cache = apicache.options(apicacheOptions).middleware;
 
