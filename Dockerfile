@@ -1,6 +1,6 @@
-# Docker image for node app with AWS & CF CLIs
+# Docker image to build and deploy to Cloud Foundry.
 #
-# This does *not* run the Contentful cache app, but it used as the agent in its
+# This does *not* run the proxy/cache app, but is used as the agent in its
 # Jenkins Pipeline.
 
 FROM debian:stable-slim

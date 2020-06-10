@@ -1,0 +1,6 @@
+{
+  "/annotation/": "https://api.europeana.eu/",
+  "/entity/": "https://api.europeana.eu/",
+  "/record/": "https://api.europeana.eu/",
+  "/spaces/CONTENTFUL_SPACE_ID/environments/CONTENTFUL_ENVIRONMENT_ID/": "https://cdn.contentful.com/"
+}

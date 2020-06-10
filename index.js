@@ -1,11 +1,26 @@
 require('dotenv').config();
 
+const { cosmiconfigSync } = require('cosmiconfig');
+
 const express = require('express');
 const apicache = require('apicache');
 const morgan = require('morgan');
 const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const redis = require('redis');
+
+const loadRuntimeConfiguration = () => {
+  let rc = {};
+
+  if (process.env['PROXY_RC']) {
+    rc = JSON.parse(process.env['PROXY_RC']);
+  } else {
+    const configSearch = cosmiconfigSync('proxy').search();
+    if (configSearch) rc = configSearch.config;
+  }
+
+  return rc;
+};
 
 const apicacheOptions = {
   debug: Number(process.env.ENABLE_APICACHE_DEBUG)
@@ -38,14 +53,18 @@ app.get('/', (req, res) => {
 const onlyStatus200 = (req, res) => res.statusCode === 200;
 const cacheSuccesses = cache(process.env.CACHE_DURATION || '5 minutes', onlyStatus200);
 
-app.use(
-  `/spaces/${process.env.CTF_SPACE_ID}/environments/${process.env.CTF_ENVIRONMENT_ID}/`,
-  cacheSuccesses,
-  createProxyMiddleware({
-    target: 'https://cdn.contentful.com/',
-    changeOrigin: true
-  })
-);
+const rc = loadRuntimeConfiguration();
+for (const path in rc) {
+  const target = rc[path];
+  app.use(
+    path,
+    cacheSuccesses,
+    createProxyMiddleware({
+      target,
+      changeOrigin: true
+    })
+  );
+}
 
 const server = app.listen(process.env.PORT || 3000, () => {
   console.log('Listening on port ' + server.address().port);

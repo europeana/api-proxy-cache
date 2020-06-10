@@ -24,7 +24,6 @@ module.exports = {
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'keyword-spacing': ['error', { 'before': true, 'after': true }],
     'linebreak-style': ['error', 'unix'],
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-trailing-spaces': 'error',
     'no-var': 'error',
