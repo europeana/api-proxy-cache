@@ -1,7 +1,18 @@
 require('dotenv').config();
 
-const { cosmiconfigSync } = require('cosmiconfig');
+const elasticApmNode = require('elastic-apm-node');
+const elasticApmOptions = {
+  serviceName: 'api-proxy-cache',
+  serviceVersion: require('./package').version,
+  serverUrl: process.env['ELASTIC_APM_SERVER_URL'],
+  environment: process.env['ELASTIC_APM_ENVIRONMENT'] || 'development',
+  logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
+  frameworkName: 'Express.js',
+  frameworkVersion: require('express/package.json').version
+};
+if (elasticApmOptions.serverUrl) elasticApmNode.start(elasticApmOptions);
 
+const { cosmiconfigSync } = require('cosmiconfig');
 const express = require('express');
 const apicache = require('apicache');
 const morgan = require('morgan');
