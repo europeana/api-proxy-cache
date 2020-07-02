@@ -4,7 +4,8 @@ pipeline {
   }
   agent {
     dockerfile {
-      args "-u root:root"
+      dir 'deploy/cloud-foundry'
+      args '-u root:root'
     }
   }
   environment {
@@ -26,7 +27,7 @@ pipeline {
       }
       steps {
         configFileProvider([configFile(fileId: "portaljs-api-proxy-cache.${env.CF_SPACE}.env", targetLocation: '.env')]) {
-          sh 'cf blue-green-deploy ${CF_APP_NAME} -f manifest.yml --delete-old-apps'
+          sh 'cf blue-green-deploy ${CF_APP_NAME} -f deploy/cloud-foundry/manifest.yml --delete-old-apps'
         }
       }
     }

@@ -2,5 +2,6 @@
   "/annotation/": "https://api.europeana.eu/",
   "/entity/": "https://api.europeana.eu/",
   "/record/": "https://api.europeana.eu/",
+  "/content/v1/spaces/CONTENTFUL_SPACE_ID/environments/": "https://graphql.contentful.com",
   "/spaces/CONTENTFUL_SPACE_ID/environments/CONTENTFUL_ENVIRONMENT_ID/": "https://cdn.contentful.com/"
 }
