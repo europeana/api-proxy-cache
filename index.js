@@ -54,7 +54,7 @@ const app = express();
 
 app.use(cors());
 app.use(morgan('combined'));
-app.use(compression());
+if (Number(process.env.ENABLE_COMPRESSION)) app.use(compression());
 
 const cache = apicache.options(apicacheOptions).middleware;
 
