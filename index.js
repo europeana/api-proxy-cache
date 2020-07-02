@@ -17,6 +17,7 @@ const express = require('express');
 const apicache = require('apicache');
 const morgan = require('morgan');
 const cors = require('cors');
+const compression = require('compression');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const redis = require('redis');
 
@@ -53,6 +54,7 @@ const app = express();
 
 app.use(cors());
 app.use(morgan('combined'));
+if (Number(process.env.ENABLE_COMPRESSION)) app.use(compression());
 
 const cache = apicache.options(apicacheOptions).middleware;
 
