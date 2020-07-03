@@ -1,16 +1,13 @@
-# Docker image to build and deploy to Cloud Foundry.
-#
-# This does *not* run the proxy/cache app, but is used as the agent in its
-# Jenkins Pipeline.
+FROM node:12-alpine
 
-FROM debian:stable-slim
+ENV NODE_ENV=production
+ENV PORT=8080
+ENV HOST=0.0.0.0
 
 WORKDIR /app
 
-# Install CF CLI
-RUN apt-get -q update && apt-get -yq install gnupg apt-transport-https wget \
-  && wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add - \
-  && echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list \
-  && apt-get -q update && apt-get -yq install cf-cli \
-  && rm -rf /var/lib/apt/lists/* \
-  && cf install-plugin blue-green-deploy -f -r CF-Community
+COPY index.js package*.json ./
+
+RUN npm install
+
+ENTRYPOINT ["npm", "run", "start"]

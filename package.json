@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint *.js",
     "start": "node index.js",
-    "start:cluster": "cross-env NODE_ENV=production cservice --restartOnMemUsage 134217728 --cli false index.js"
+    "start:cluster": "cservice --cli false index.js"
   },
   "repository": {
     "type": "git",
