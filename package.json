@@ -38,5 +38,11 @@
   },
   "devDependencies": {
     "eslint": "^6.7.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "europeana-api-proxy-cache": "bin/europeana-api-proxy-cache.js"
   }
 }
