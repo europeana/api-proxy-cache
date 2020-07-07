@@ -3,6 +3,25 @@
 [Express](https://expressjs.com/) web application to proxy requests to APIs and
 cache their responses in Redis.
 
+## Configure
+
+Copy [.proxyrc.json.example](.proxyrc.json.example) to .proxyrc.json and
+adapt for your environment.
+
+## NPM
+
+### Install
+
+```
+npm install --save @europeana/api-proxy-cache
+```
+
+### Run
+
+```
+npx europeana-api-proxy-cache
+```
+
 ## Docker
 
 ### Build
@@ -10,11 +29,6 @@ cache their responses in Redis.
 ```
 docker build -t europeana/api-proxy-cache .
 ```
-
-### Configure
-
-Copy [.proxyrc.json.example](.proxyrc.json.example) to .proxyrc.json and
-adapt for your environment.
 
 ### Run
 
