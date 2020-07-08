@@ -6,7 +6,7 @@ ENV HOST=0.0.0.0
 
 WORKDIR /app
 
-COPY index.js package*.json ./
+COPY . .
 
 RUN npm install
 
