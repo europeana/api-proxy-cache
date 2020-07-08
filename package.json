@@ -4,7 +4,7 @@
   "description": "Europeana API proxy/cache",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint *.js",
+    "lint": "eslint --ext .js --ignore-path .gitignore .",
     "start": "node index.js",
     "start:cluster": "cservice --cli false index.js"
   },
