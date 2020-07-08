@@ -1,18 +1,15 @@
-require('dotenv').config();
+const config = require('./src/config');
 
 const elasticApmNode = require('elastic-apm-node');
 const elasticApmOptions = {
-  serviceName: 'api-proxy-cache',
-  serviceVersion: require('./package').version,
-  serverUrl: process.env['ELASTIC_APM_SERVER_URL'],
-  environment: process.env['ELASTIC_APM_ENVIRONMENT'] || 'development',
-  logLevel: process.env['ELASTIC_APM_LOG_LEVEL'] || 'info',
+  ...config.elasticApm,
   frameworkName: 'Express.js',
-  frameworkVersion: require('express/package.json').version
+  frameworkVersion: require('express/package.json').version,
+  serviceName: 'api-proxy-cache',
+  serviceVersion: require('./package').version
 };
 if (elasticApmOptions.serverUrl) elasticApmNode.start(elasticApmOptions);
 
-const { cosmiconfigSync } = require('cosmiconfig');
 const express = require('express');
 const apicache = require('apicache');
 const morgan = require('morgan');
@@ -21,40 +18,19 @@ const compression = require('compression');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const redis = require('redis');
 
-const loadRuntimeConfiguration = () => {
-  let rc = {};
-
-  if (process.env['PROXY_RC']) {
-    rc = JSON.parse(process.env['PROXY_RC']);
-  } else {
-    const configSearch = cosmiconfigSync('proxy').search();
-    if (configSearch) rc = configSearch.config;
-  }
-
-  return rc;
-};
-
 const apicacheOptions = {
-  debug: Number(process.env.ENABLE_APICACHE_DEBUG)
+  debug: config.enable.apicacheDebug
 };
 
-if (process.env.REDIS_URL) {
-  const redisOptions = {
-    url: process.env.REDIS_URL
-  };
-  if (process.env.REDIS_TLS_CA) {
-    redisOptions.tls = {
-      ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')]
-    };
-  }
-  apicacheOptions.redisClient = redis.createClient(redisOptions);
+if (config.redis.url) {
+  apicacheOptions.redisClient = redis.createClient(config.redis);
 }
 
 const app = express();
 
 app.use(cors());
-app.use(morgan('combined'));
-if (Number(process.env.ENABLE_COMPRESSION)) app.use(compression());
+if (config.enable.logging) app.use(morgan('combined'));
+if (config.enable.compression) app.use(compression());
 
 const cache = apicache.options(apicacheOptions).middleware;
 
@@ -64,21 +40,20 @@ app.get('/', (req, res) => {
 });
 
 const onlyStatus200 = (req, res) => res.statusCode === 200;
-const cacheSuccesses = cache(process.env.CACHE_DURATION || '5 minutes', onlyStatus200);
+const cacheSuccesses = cache(config.cacheDuration, onlyStatus200);
 
-const rc = loadRuntimeConfiguration();
-for (const path in rc) {
-  const target = rc[path];
+for (const path in config.proxy) {
+  const target = config.proxy[path];
   app.use(
     path,
     cacheSuccesses,
     createProxyMiddleware({
-      target,
-      changeOrigin: true
+      changeOrigin: true,
+      target
     })
   );
 }
 
-const server = app.listen(process.env.PORT || 3000, () => {
+const server = app.listen(config.port, () => {
   console.log('Listening on port ' + server.address().port);
 });
