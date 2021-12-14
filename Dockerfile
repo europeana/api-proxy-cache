@@ -1,13 +1,27 @@
-FROM node:12-alpine
-
-ENV NODE_ENV=production
-ENV PORT=8080
-ENV HOST=0.0.0.0
+FROM node:14-alpine AS base
 
 WORKDIR /app
 
-COPY . .
+COPY package*.json ./
 
-RUN npm install
+RUN NODE_ENV=production npm ci
 
-ENTRYPOINT ["npm", "run", "start"]
+COPY index.js *.md ./
+COPY src ./src
+
+
+FROM gcr.io/distroless/nodejs:14
+
+ENV PORT=8080 \
+    HOST=0.0.0.0 \
+    NODE_ENV=production
+
+EXPOSE ${PORT}
+
+WORKDIR /app
+
+COPY --from=base /app .
+
+USER 1000
+
+CMD ["index.js"]
