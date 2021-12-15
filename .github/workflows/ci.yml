@@ -167,7 +167,7 @@ jobs:
         name: Publish to NPM
         run: |
           cp .github/workflows/ci/npm/.npmrc ~/
-          npm publish --access public --dry-run
+          npm publish --access public
 
   # Send a notification to Slack channel with details of new PR deployments
   notify:
