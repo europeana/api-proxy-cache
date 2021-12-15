@@ -31,7 +31,7 @@
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.4",
     "morgan": "^1.10.0",
-    "redis": "^2.8.0"
+    "redis": "^3.1.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0"
