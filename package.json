@@ -1,6 +1,6 @@
 {
   "name": "@europeana/api-proxy-cache",
-  "version": "0.6.0-rc3",
+  "version": "0.5.2",
   "description": "Europeana API proxy/cache",
   "main": "index.js",
   "scripts": {
