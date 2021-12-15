@@ -165,7 +165,9 @@ jobs:
           node-version: '14'
       -
         name: Publish to NPM
-        run: npm publish --access public
+        run: |
+          cp .github/workflows/ci/npm/.npmrc ~/
+          npm publish --access public --dry-run
 
   # Send a notification to Slack channel with details of new PR deployments
   notify:
