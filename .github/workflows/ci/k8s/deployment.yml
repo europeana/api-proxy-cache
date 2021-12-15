@@ -28,7 +28,7 @@ spec:
             optional: false
         image: ${DOCKER_IMAGE_TAG}
         imagePullPolicy: Always
-        name: portal-js-web
+        name: api-proxy-cache-web
         ports:
         - containerPort: 8080
           name: 8080tcp
