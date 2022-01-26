@@ -1,4 +1,4 @@
-FROM node:14-alpine AS base
+FROM node:16-alpine AS base
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY index.js *.md ./
 COPY src ./src
 
 
-FROM gcr.io/distroless/nodejs:14
+FROM gcr.io/distroless/nodejs:16
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \

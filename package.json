@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/europeana/api-proxy-cache#readme",
   "engines": {
-    "node": "^14",
-    "npm": "^6"
+    "node": "^16",
+    "npm": "^8"
   },
   "dependencies": {
     "apicache": "^1.5.3",
