@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/europeana/api-proxy-cache.git"
+    "url": "https://github.com/europeana/api-proxy-cache.git"
   },
   "author": "Richard Doe <richard.doe@europeana.eu>",
   "license": "EUPL-1.2",
