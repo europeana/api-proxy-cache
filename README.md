@@ -36,7 +36,7 @@ docker build -t europeana/api-proxy-cache .
 docker run -it \
   --mount type=bind,source="$(pwd)"/.proxyrc.json,target=/app/.proxyrc.json \
   --env-file .env \
-  -p 3001:3001 \
+  -p 8080:8080 \
   europeana/api-proxy-cache
 ```
 

@@ -18,8 +18,7 @@
   },
   "homepage": "https://github.com/europeana/api-proxy-cache#readme",
   "engines": {
-    "node": "^16",
-    "npm": "^8"
+    "node": "^24"
   },
   "dependencies": {
     "apicache": "^1.6.3",
@@ -27,7 +26,7 @@
     "cors": "^2.8.5",
     "cosmiconfig": "^6.0.0",
     "dotenv": "^8.2.0",
-    "elastic-apm-node": "^3.24.0",
+    "elastic-apm-node": "^3.52.2",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.4",
     "morgan": "^1.10.0",
